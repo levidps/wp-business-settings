@@ -1,9 +1,3 @@
-var toggleSection = function(){
-	var tgt = this.getAttribute('data-target');
-	var tgt_section = document.getElementById(tgt);
-	tgt_section.classList.toggle('ui-collapse');
-};
-
 var locationGeocode = function(){
 	var geocoder = new google.maps.Geocoder();
 	var street, locality, region, country;
@@ -13,20 +7,19 @@ var locationGeocode = function(){
 	country = document.getElementById('address_country').value;
 
 	if ( street === '' || locality === '' ) {
-		alert('Insufficient data to geocode the location.');
+		window.alert('Insufficient data to geocode the location.');
 	}
 
 	var address = ( street + ' ' + locality + ' ' + region + ' ' + country ).trim();
 	geocoder.geocode( { 'address': address}, function(results, status) {
-		window.console.log(status);
-		if (status == 'OK') {
+		if (status === 'OK') {
 			var location = results[0].geometry.location;
 			var lat = location.lat();
 			var lng = location.lng();
 			document.getElementById('geo_lat').value = lat;
 			document.getElementById('geo_lng').value = lng;
 		} else {
-			alert('Geocode was not successful for the following reason: ' + status);
+			window.alert('Geocode was not successful for the following reason: ' + status);
 		}
 	});
 };
@@ -53,16 +46,6 @@ var schemaUpdateOptions = function(){
 };
 
 var init = function() {
-
-	var jmr_sections = document.querySelectorAll('.jmr-variable-section');
-	for ( var i = 0; i < jmr_sections.length; i++ ) {
-		jmr_sections[i].classList.add('ui-collapse');
-	}
-
-	var jmr_toggle = document.querySelectorAll('.jmr-variable-section h3');
-	for ( i = 0; i < jmr_toggle.length; i++ ) {
-		jmr_toggle[i].addEventListener('click', toggleSection, false);
-	}
 
 	var $sel = jQuery('#schemaType').val();
 	if ($sel !== ''){
