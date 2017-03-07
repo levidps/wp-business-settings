@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Variables
- * Plugin URI: https://jmr.codes/wp/variables/
+ * Plugin URI: https://jmrcodes.github.io/wp-variables
  * Description: A plugin to store common variables (social media links, phone number, address, etc) that can be accessed in WordPress themes.
  * Version: 1.0
  * Author: James Robinson
@@ -9,7 +9,7 @@
  * License: GPL2
  */
 
-/*  Copyright 2017 James Robinson (email : help@jmr.codes)
+/*  Copyright 2017 James Robinson
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
