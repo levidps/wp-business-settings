@@ -1,16 +1,16 @@
 var locationGeocode = function(){
 	var geocoder = new google.maps.Geocoder();
 	var street, locality, region, country;
-	street = document.getElementById('address_street').value;
-	locality = document.getElementById('address_locality').value;
-	region = document.getElementById('address_region').value;
-	country = document.getElementById('address_country').value;
+	street = document.getElementById('address_street');
+	locality = document.getElementById('address_locality');
+	region = document.getElementById('address_region');
+	country = document.getElementById('address_country');
 
-	if ( street === '' || locality === '' ) {
+	if ( street && street.value === '' || locality && locality.value === '' ) {
 		window.alert('Insufficient data to geocode the location.');
 	}
 
-	var address = ( street + ' ' + locality + ' ' + region + ' ' + country ).trim();
+	var address = ( street.value + ' ' + locality.value + ' ' + region.value + ' ' + country.value ).trim();
 	geocoder.geocode( { 'address': address}, function(results, status) {
 		if (status === 'OK') {
 			var location = results[0].geometry.location;
@@ -60,7 +60,11 @@ var init = function() {
 
 	document.getElementById('showSchemaJSON').addEventListener('click', showSchema, false);
 	document.getElementById('schemaTypeSelect').addEventListener('change', schemaUpdateOptions, false);
-	document.getElementById('generateLocation').addEventListener('click', locationGeocode, false);
+
+	var btnGenerateLocation = document.getElementById('generateLocation');
+	if (btnGenerateLocation !== null) {
+		btnGenerateLocation.addEventListener('click', locationGeocode, false);
+	}
 
 };
 
