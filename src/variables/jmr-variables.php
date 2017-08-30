@@ -126,9 +126,17 @@ function jmr_variables_do_page() {
 			<hr>
 
 			<h2 class="title"><?php esc_html_e('Opening Hours', 'variables'); ?></h2>
-			<div class="notice notice-info inline">
-				<p><?php esc_html_e('Opening hours must be in 24 hour format, e.g. 6pm will be expressed 18:00', 'variables'); ?></p>
-			</div>
+            <div class="notice notice-info inline">
+                <p><?php esc_html_e('Opening hours must be in 24 hour format, e.g. 6pm will be expressed 18:00', 'variables'); ?></p>
+                <hr/>
+                <p><?php esc_html_e('You can display open hours either by the day or as a block. Using either code has two options of displaying the hours, in a 24hr format and/or a shortened format (Mon/Tue/Wed). They must be entered in the order of time format followed by day format. By default a 12hr AM/PM formatting is used for time and a full day format for the days.'); ?></p>
+                <em><?php esc_html_e("It's good to note that using get_the_hours requires a day written fully (in english) to return the hours"); ?></em>
+                <p><code class="jmr_var">get_the_business_hours</code> <code class="jmr_var">get_the_hours</code></p>
+                <p><?php esc_html_e('To display in a 24hr format use either the string or integer 24, and to shorten the day format use the string "short". Below are some examples.') ?></p>
+                <hr/>
+                <p><code class="jmr_var">get_the_hours('monday', 24, 'short')</code> - <b>Mon 10 - 17</b></p>
+                <p><code class="jmr_var">get_the_hours('monday')</code> - <b>Monday 10am - 5pm</b></p>
+            </div>
 			<table class="form-table form-hours">
 				<tr>
 					<th><?php esc_html_e('Monday', 'variables'); ?></th>
@@ -648,6 +656,116 @@ function get_the_social_links( $networks = array(), $link = true, $icon = true, 
 	// query $networks foreach to create anonymous array of valid networks
 	// if count > 0 create wrapper, add class, then loop through anonymous array
 }
+
+// function for converting from 24hr format
+function convert(&$param) {
+    if ( $param > 12 ) {
+        $param = $param - 12 .'pm';
+    } else {
+        $param = $param .'am';
+    }
+    return;
+}
+
+// Shorten days
+function truncate(&$param) {
+    if ($param === "thursday" ) {
+        $param = substr($param,0,4); }
+    else {
+        $param = substr($param, 0, 3); }
+    return;
+}
+
+// Get individual hours for a day
+function get_the_hours($var, $time_format = null, $day_format = null, $day_range = null) {
+
+    // Get variables
+    $options = get_option('jmr_var');
+    $open = get_the_variable('hours_'. $var .'_open');
+    $close = get_the_variable('hours_'. $var .'_close');
+    $day2 = null;
+    if ( $day_range ) {
+        $day2 = '-'. ucfirst(substr($day_range, 0, 2)); }
+    $schema = 'itemprop="openingHours" content="'. ucfirst(substr($var, 0, 2)) . $day2 .' '. $open .':00-'. $close .':00"';
+
+    // Time formatting
+    if ( $time_format === '24' || $time_format === 24 ) { } else {
+        convert($open);
+        convert($close);
+    }
+
+    // Truncate if short & display 1/2 days
+    if ( $day_format === 'short' && $day_range === null ) {
+        truncate($var);
+        $days = ucfirst($var);
+    } else if  ( $day_range === null && $day_range === null ) {
+        $days = ucfirst($var);
+    } else if  ( $day_format === 'short' && $day_range ) {
+        truncate($var);
+        truncate($day_range);
+        $days = ucfirst($var) .' - '. ucfirst($day_range);
+    } else {
+        $days = ucfirst($var) .' - '. ucfirst($day_range);
+    }
+
+    $hours =  '<span itemscope itemtype="http://schema.org/'.  $options['schema_type'] .'">
+                <span>'. $days .'</span> <span>'. $open .'</span> - <span>'. $close .'</span>
+                <meta '. $schema .'/> 
+              </span>';
+
+    return $hours;
+}
+
+// Disply business hours
+function get_the_business_hours($time_format = null, $day_format = null) {
+
+    // Get variables8
+    $options = get_option('jmr_var');
+    $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+    $hours = array();
+    $i = 0;
+
+    // for each day
+    foreach ($days as $key=>$day) {
+
+        // set open & close val
+        $open = get_the_variable('hours_'. $day .'_open');
+        $close = get_the_variable('hours_'. $day .'_close');
+
+        // if first push values to array
+        if ( $key === 0 ) {
+            array_push( $hours, array($key, $open, $close, $key) );
+            // else loop through all days
+        } else {
+            $key2 = $key;
+
+            // if match previous item in hours array skip
+            if ( $open == $hours[$i][1] && $close == $hours[$i][2] ) {
+                $hours[$i][3] = $key;
+                // else use index to set key & push hours to array
+            } else {
+                $i = $key;
+                array_push( $hours, array($key, $open, $close, $key2) );
+                $key2 = 0;
+            }
+        }
+    }
+
+    foreach ( $hours as $val ) {
+        $key    = $val[0];
+        $key2   = $val[3];
+        $day    = $days[$key];
+        $day2   = $days[$key2];
+
+        if ( $key === $key2 ) {
+            echo get_the_hours($day, $time_format, $day_format);
+        } else {
+            echo get_the_hours($day, $time_format, $day_format, $day2);
+        }
+    }
+    return;
+}
+
 
 // Return a formatted address for use in PHP
 function get_the_address($var) {
