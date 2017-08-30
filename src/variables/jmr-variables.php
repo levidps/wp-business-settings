@@ -770,7 +770,7 @@ function get_the_business_hours($time_format = null, $day_format = null) {
 }
 
 // Return a formatted address for use in PHP
-function get_the_address($var) {
+function get_the_address() {
 
     // Get variables
     $options = get_option('jmr_var');
