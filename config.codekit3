@@ -9,6 +9,36 @@
 	],
 "creatorBuild": "25900",
 "files": {
+	"\/.gitignore": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.gitignore",
+		"oF": 0
+		},
+	"\/.idea\/modules.xml": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.idea\/modules.xml",
+		"oF": 0
+		},
+	"\/.idea\/vcs.xml": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.idea\/vcs.xml",
+		"oF": 0
+		},
+	"\/.idea\/workspace.xml": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.idea\/workspace.xml",
+		"oF": 0
+		},
+	"\/.idea\/wp-variables.iml": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.idea\/wp-variables.iml",
+		"oF": 0
+		},
 	"\/dist\/assets\/icon-128x128.png": {
 		"ft": 32768,
 		"iS": 6060,
