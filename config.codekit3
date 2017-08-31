@@ -7,29 +7,39 @@
 		"uuidString": "A87A1A98-4061-4CFC-B479-0487E6D1A33D"
 		}
 	],
-"creatorBuild": "25813",
+"creatorBuild": "25900",
 "files": {
-	"\/assets\/img\/wp-variables.svg": {
+	"\/dist\/assets\/icon-128x128.png": {
+		"ft": 32768,
+		"iS": 6060,
+		"oA": 0,
+		"oAP": "\/dist\/assets\/icon-128x128.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"\/dist\/assets\/icon-256x256.png": {
+		"ft": 32768,
+		"iS": 12718,
+		"oA": 0,
+		"oAP": "\/dist\/assets\/icon-256x256.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"\/dist\/assets\/icon.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "\/assets\/img\/wp-variables.svg",
+		"oAP": "\/dist\/assets\/icon.svg",
 		"oF": 0,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
-		},
-	"\/assets\/src\/logo.sketch": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/assets\/src\/logo.sketch",
-		"oF": 0
-		},
-	"\/assets\/src\/wp-variables.sketch": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/assets\/src\/wp-variables.sketch",
-		"oF": 0
 		},
 	"\/dist\/variables.php": {
 		"ft": 8192,
@@ -49,12 +59,13 @@
 		},
 	"\/dist\/variables\/jmr-variables.php": {
 		"ft": 8192,
-		"oA": 1,
+		"oA": 2,
 		"oAP": "\/dist\/variables\/jmr-variables.php",
-		"oF": 1
+		"oF": 0
 		},
 	"\/dist\/variables\/js\/jmr-variables-min.js": {
 		"ft": 64,
+		"ma": 0,
 		"mi": 1,
 		"oA": 1,
 		"oAP": "\/dist\/variables\/js\/min\/jmr-variables-min-min.js",
@@ -104,22 +115,13 @@
 		"rFN": 0,
 		"uCM": 0
 		},
-	"\/src\/variables.php": {
+	"\/src\/assets\/icon.sketch": {
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/src\/variables.php",
+		"oAP": "\/src\/assets\/icon.sketch",
 		"oF": 0
 		},
-	"\/src\/variables\/_lib\/jmr-variables.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/src\/variables\/js\/jmr-variables-min.js",
-		"oF": 2,
-		"sC": 1,
-		"tS": 0
-		},
-	"\/src\/variables\/_lib\/jmr-variables.scss": {
+	"\/src\/css\/jmr-variables.scss": {
 		"aP": 1,
 		"bl": 0,
 		"dP": 10,
@@ -131,6 +133,22 @@
 		"oF": 2,
 		"oS": 3,
 		"uL": 1
+		},
+	"\/src\/js\/jmr-variables.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/src\/variables\/js\/jmr-variables-min.js",
+		"oF": 2,
+		"sC": 1,
+		"tS": 0
+		},
+	"\/src\/variables.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/src\/variables.php",
+		"oF": 0
 		},
 	"\/src\/variables\/css\/jmr-variables.css": {
 		"aP": 1,
@@ -156,6 +174,7 @@
 		},
 	"\/src\/variables\/js\/jmr-variables-min.js": {
 		"ft": 64,
+		"ma": 0,
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/src\/variables\/js\/min\/jmr-variables-min-min.js",
@@ -600,6 +619,10 @@
 			"active": 0,
 			"optionString": "{'setWithoutGet': true, 'getWithoutSet': false}"
 			},
+		"array-bracket-newline": {
+			"active": 0,
+			"optionString": "{'multiline': true, 'minItems': null}"
+			},
 		"array-bracket-spacing": {
 			"active": 0,
 			"optionString": "'never', {'singleValue': false, 'objectsInArrays': false, 'arraysInArrays': false}"
@@ -607,6 +630,10 @@
 		"array-callback-return": {
 			"active": 0,
 			"optionString": ""
+			},
+		"array-element-newline": {
+			"active": 0,
+			"optionString": "'always'"
 			},
 		"arrow-body-style": {
 			"active": 0,
@@ -704,6 +731,10 @@
 			"active": 0,
 			"optionString": "'always', {'null': 'always'}"
 			},
+		"for-direction": {
+			"active": 0,
+			"optionString": ""
+			},
 		"func-call-spacing": {
 			"active": 0,
 			"optionString": "'never'"
@@ -723,6 +754,10 @@
 		"generator-star-spacing": {
 			"active": 0,
 			"optionString": "{'before': true, 'after': false}"
+			},
+		"getter-return": {
+			"active": 0,
+			"optionString": "{'allowImplicit': false}"
 			},
 		"global-require": {
 			"active": 0,
@@ -851,6 +886,10 @@
 		"no-bitwise": {
 			"active": 0,
 			"optionString": "{'allow': ['~'], 'int32Hint': true}"
+			},
+		"no-buffer-constructor": {
+			"active": 0,
+			"optionString": ""
 			},
 		"no-caller": {
 			"active": 0,
@@ -1396,6 +1435,10 @@
 			"active": 0,
 			"optionString": "{'blocks': 'always', 'switches': 'always', 'classes': 'always'}"
 			},
+		"padding-line-between-statements": {
+			"active": 0,
+			"optionString": "{blankLine: 'always', prev:'*', next:'return'}"
+			},
 		"prefer-arrow-callback": {
 			"active": 0,
 			"optionString": ""
@@ -1464,6 +1507,10 @@
 			"active": 0,
 			"optionString": "{'before': false, 'after': true}"
 			},
+		"semi-style": {
+			"active": 0,
+			"optionString": "'last'"
+			},
 		"sort-imports": {
 			"active": 0,
 			"optionString": "{'ignoreCase': false, 'ignoreMemberSort': true, 'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single']}"
@@ -1503,6 +1550,10 @@
 		"strict": {
 			"active": 0,
 			"optionString": "'safe'"
+			},
+		"switch-colon-spacing": {
+			"active": 0,
+			"optionString": "{'after': true, 'before': false}"
 			},
 		"symbol-description": {
 			"active": 0,
@@ -2132,9 +2183,11 @@
 		},
 	"languageDefaultsUserDefined": [
 		],
+	"overrideExternalServerCSS": 0,
 	"previewPathAddition": "",
 	"skippedFoldersString": "log, _logs, logs, _cache, cache, \/storage\/framework\/sessions, node_modules",
 	"sourceFolderName": "source",
+	"susyVersion": 3,
 	"uglifyDefinesString": "",
 	"uglifyFlags2": {
 		"ascii-only": {
