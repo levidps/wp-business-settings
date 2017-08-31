@@ -134,7 +134,7 @@ function jmr_variables_do_page() {
 					<th><?php esc_html_e('Monday', 'variables'); ?></th>
 					<td>
 						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_monday_open]" value="<?php if ( isset( $options['hours_monday_open'] ) ) echo $options['hours_monday_open']; ?>"></label>
-						<label>Close: <input type="text" class="regular-text small-text" name="jmr_var[hours_monday]" value="<?php if ( isset( $options['hours_monday'] ) ) echo $options['hours_monday']; ?>"></label>
+						<label>Close: <input type="text" class="regular-text small-text" name="jmr_var[hours_monday_close]" value="<?php if ( isset( $options['hours_monday_close'] ) ) echo $options['hours_monday_close']; ?>"></label>
 					</td>
 				</tr>
 				<tr>
@@ -607,7 +607,7 @@ function jmr_variables_style($hook) {
 
 	$options = get_option('jmr_var');
 	if ( isset( $options['geo_api'] ) && false === empty( $options['geo_api'] ) ) :
-		wp_register_script( 'jmr-google-maps', 'https://maps.googleapis.com/maps/api/js?key=', array(), '1.0', true );
+		wp_register_script( 'jmr-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $options['geo_api'], array(), '1.0', true );
 		wp_register_script( 'jmr-variables', WPMU_PLUGIN_URL . '/variables/js/jmr-variables-min.js', array('jmr-google-maps'), '1.0', true );
 	else :
 		wp_register_script( 'jmr-variables', WPMU_PLUGIN_URL . '/variables/js/jmr-variables-min.js', array(), '1.0', true );
@@ -640,6 +640,13 @@ function the_variable($var) {
 
 	return;
 
+}
+
+// Return formatted social media values
+function get_the_social_links( $networks = array(), $link = true, $icon = true, $before='<li>', $after='</li>', $container = '<nav>', $container_class = 'social-menu' ){
+	// test $networks for string or array
+	// query $networks foreach to create anonymous array of valid networks
+	// if count > 0 create wrapper, add class, then loop through anonymous array
 }
 
 // Return a formatted address for use in PHP
