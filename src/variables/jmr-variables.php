@@ -650,27 +650,79 @@ function the_variable($var) {
 
 }
 
+/**
+ * function for converting from 24hr format
+ * includes delimiter for splitting currently has . and :
+ * @param $param
+ * @param string $delimiter
+ * @return string
+ */
+function convert(&$param, $delimiter = ".") {
+	/*
+	 * Array fo delimiters to search for
+	 */
+	$delimiters = array(':', '.');
+	$del = ':';
 
-// function for converting from 24hr format
-function convert(&$param) {
+	/*
+	 * Search string for delimiter array and store for use in formatting
+	 */
+	foreach ( $delimiters as $item ) :
+		if ( strpos($param, $item) ) {
+			$del = $item;
+		};
+	endforeach;
+
+	/*
+	 * Explode param with delimiter
+	 */
+	$time = explode($del, $param);
+
+	/*
+	 * Calculate and format with delimiter
+	 */
 	if ( $param > 12 ) {
-		$param = $param - 12 .'pm';
+		if ( $time[1]) :
+			$param = $time[0] - 12 . $delimiter . $time[1].'pm';
+		else :
+			$param = $time[0] - 12 . $delimiter .'00pm';
+		endif;
+		echo '<script>console.log("'. $param .'")</script>';
 	} else {
-		$param = $param .'am';
+		if ( $time[1] ) :
+			$param = $time[0] . $delimiter . $time[1] .'am';
+		else:
+			$param = $time[0] . $delimiter .'00am';
+		endif;
 	}
-	return;
+
+	/*
+	 * Return Param
+	 */
+	return $param;
 }
 
-// Shorten days
+/**
+ * Shorten day Name
+ * @param $param
+ * @return bool|string
+ */
 function truncate(&$param) {
 	if ($param === "thursday" ) {
 		$param = substr($param,0,4); }
 	else {
 		$param = substr($param, 0, 3); }
-	return;
+	return $param;
 }
 
-// Get individual hours for a day
+/**
+ * Get individual hours for a day
+ * @param $var
+ * @param null $time_format
+ * @param null $day_format
+ * @param null $day_range
+ * @return string
+ */
 function get_the_hours($var, $time_format = null, $day_format = null, $day_range = null) {
 
 	// Get variables
@@ -710,7 +762,11 @@ function get_the_hours($var, $time_format = null, $day_format = null, $day_range
 	return $hours;
 }
 
-// Disply business hours
+/**
+ * Display business hours
+ * @param null $time_format
+ * @param null $day_format
+ */
 function get_the_business_hours($time_format = null, $day_format = null) {
 
 	// Get variables8
