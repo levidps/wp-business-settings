@@ -687,7 +687,6 @@ function convert(&$param, $delimiter = ".") {
 		else :
 			$param = $time[0] - 12 . $delimiter .'00pm';
 		endif;
-		echo '<script>console.log("'. $param .'")</script>';
 	} else {
 		if ( $time[1] ) :
 			$param = $time[0] . $delimiter . $time[1] .'am';
@@ -838,7 +837,7 @@ function get_the_address() {
 	if ( isset($address_street) && empty($address_box) ) {
 		$html .= '<span itemprop="streetAddress">'. $address_street .'</span><br>'; }
 	elseif ( isset($address_box) )  {
-		$html .= '<span itemprop="postOfficeBoxNumber">PO Box'. $address_box .'</span><br>'; }
+		$html .= '<span itemprop="postOfficeBoxNumber">PO Box '. $address_box .'</span><br>'; }
 
 	// Locality -> Region -> Postalcode -> AddressCountry
 	if ( isset($address_locality) ) {
