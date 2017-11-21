@@ -17,7 +17,7 @@ function jmr_variables_add_page() {
 
 // Draw the menu page
 function jmr_variables_do_page() {
-?>
+	?>
 
 	<div class="wrap">
 
@@ -25,8 +25,8 @@ function jmr_variables_do_page() {
 
 		<form method="post" action="options.php">
 			<?php
-				settings_fields('jmr_variables_options');
-				$options = get_option('jmr_var');
+			settings_fields('jmr_variables_options');
+			$options = get_option('jmr_var');
 			?>
 
 			<div class="notice notice-info is-dismissible">
@@ -115,12 +115,12 @@ function jmr_variables_do_page() {
 					<th><label for="geo_api"><?php esc_html_e('Google Geocoder API', 'variables'); ?></label></th>
 					<td><input type="text" class="regular-text code" id="geo_api" name="jmr_var[geo_api]" value="<?php if ( isset( $options['geo_api'] ) ) echo $options['geo_api']; ?>"> <button type="submit" class="button ">Save</button></td>
 				</tr>
-		<?php if ( isset( $options['geo_api'] ) && false === empty( $options['geo_api'] ) ) : ?>
-				<tr>
-					<th><?php esc_html_e('Generate location', 'variables'); ?></th>
-					<td><button type="button" class="button" id="generateLocation">Generate</button></td>
-				</tr>
-		<?php endif; ?>
+				<?php if ( isset( $options['geo_api'] ) && false === empty( $options['geo_api'] ) ) : ?>
+					<tr>
+						<th><?php esc_html_e('Generate location', 'variables'); ?></th>
+						<td><button type="button" class="button" id="generateLocation">Generate</button></td>
+					</tr>
+				<?php endif; ?>
 			</table>
 
 			<hr>
@@ -128,10 +128,18 @@ function jmr_variables_do_page() {
 			<h2 class="title"><?php esc_html_e('Opening Hours', 'variables'); ?></h2>
 			<div class="notice notice-info inline">
 				<p><?php esc_html_e('Opening hours must be in 24 hour format, e.g. 6pm will be expressed 18:00', 'variables'); ?></p>
+				<hr/>
+				<p><?php esc_html_e('You can display open hours either by the day or as a block. Using either code has two options of displaying the hours, in a 24hr format and/or a shortened format (Mon/Tue/Wed). They must be entered in the order of time format followed by day format. By default a 12hr AM/PM formatting is used for time and a full day format for the days.'); ?></p>
+				<em><?php esc_html_e("It's good to note that using get_the_hours requires a day written fully (in english) to return the hours"); ?></em>
+				<p><code class="jmr_var">get_the_business_hours</code> <code class="jmr_var">get_the_hours</code></p>
+				<p><?php esc_html_e('To display in a 24hr format use either the string or integer 24, and to shorten the day format use the string "short". Below are some examples.') ?></p>
+				<hr/>
+				<p><code class="jmr_var">get_the_hours('monday', 24, 'short')</code> - <b>Mon 10 - 17</b></p>
+				<p><code class="jmr_var">get_the_hours('monday')</code> - <b>Monday 10am - 5pm</b></p>
 			</div>
 			<table class="form-table form-hours">
 				<tr>
-					<th><?php esc_html_e('Monday', 'variables'); ?></th>
+					<th><?php esc_html_e('Monday', 'variables'); ?> <br></th>
 					<td>
 						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_monday_open]" value="<?php if ( isset( $options['hours_monday_open'] ) ) echo $options['hours_monday_open']; ?>"></label>
 						<label>Close: <input type="text" class="regular-text small-text" name="jmr_var[hours_monday_close]" value="<?php if ( isset( $options['hours_monday_close'] ) ) echo $options['hours_monday_close']; ?>"></label>
@@ -260,7 +268,7 @@ function jmr_variables_do_page() {
 				<tr>
 					<th><?php esc_html_e('Enable output', 'variables'); ?></th>
 					<td><label><input type="checkbox" value="1" name="jmr_var[ga_enabled]" id="ga_enabled"
-						<?php if ( isset( $options['ga_enabled'] ) ) checked( $options['ga_enabled'], 1 ); ?>> Insert Google Analytics script</label></td>
+								<?php if ( isset( $options['ga_enabled'] ) ) checked( $options['ga_enabled'], 1 ); ?>> Insert Google Analytics script</label></td>
 				</tr>
 				<tr>
 					<th><label for="ga_id"><?php esc_html_e('Google Analytics ID', 'variables'); ?></label><br><code class="jmr_var">ga_id</code></th>
@@ -312,7 +320,7 @@ function jmr_variables_do_page() {
 				<tr>
 					<th><?php esc_html_e('Enable output', 'variables'); ?></th>
 					<td><label><input type="checkbox" value="1" name="jmr_var[schema_enabled]" id="jmr_var[schema_enabled]"
-						<?php if ( isset( $options['schema_enabled'] ) ) checked( $options['schema_enabled'], 1 ); ?>> Insert schema metadata</label></td>
+								<?php if ( isset( $options['schema_enabled'] ) ) checked( $options['schema_enabled'], 1 ); ?>> Insert schema metadata</label></td>
 				</tr>
 				<tr>
 					<th><label for="schema_description"><?php esc_html_e('Description', 'variables'); ?></label><br><code class="jmr_var">schema_description</code></th>
@@ -341,15 +349,15 @@ function jmr_variables_do_page() {
 								<option value="">Local Business options</option>
 								<option value="AnimalShelter">AnimalShelter</option>
 								<optgroup label="Automotive Business">
-									 <option value="AutoBodyShop">Auto Body Shop</option>
-									 <option value="AutoDealer">Auto Dealer</option>
-									 <option value="AutoPartsStore">Auto Parts Store</option>
-									 <option value="AutoRental">Auto Rental</option>
-									 <option value="AutoRepair">Auto Repair</option>
-									 <option value="AutoWash">Auto Wash</option>
-									 <option value="GasStation">Gas Station</option>
-									 <option value="MotorcycleDealer">Motorcycle Dealer</option>
-									 <option value="MotorcycleRepair">Motorcycle Repair</option>
+									<option value="AutoBodyShop">Auto Body Shop</option>
+									<option value="AutoDealer">Auto Dealer</option>
+									<option value="AutoPartsStore">Auto Parts Store</option>
+									<option value="AutoRental">Auto Rental</option>
+									<option value="AutoRepair">Auto Repair</option>
+									<option value="AutoWash">Auto Wash</option>
+									<option value="GasStation">Gas Station</option>
+									<option value="MotorcycleDealer">Motorcycle Dealer</option>
+									<option value="MotorcycleRepair">Motorcycle Repair</option>
 								</optgroup>
 								<option value="ChildCare">Child Care</option>
 								<option value="DryCleaningOrLaundry">Dry Cleaning or Laundry</option>
@@ -513,9 +521,9 @@ function jmr_variables_do_page() {
 							<span class="hide">Hide generated code</span>
 						</button>
 						<div id="schemaPreview" class="schema-code code ui-hidden">
-							<pre>
-								<?php echo jmr_variables_json(); ?>
-							</pre>
+                            <pre>
+                                <?php echo jmr_variables_json(); ?>
+                            </pre>
 						</div>
 					</td>
 				</tr>
@@ -527,7 +535,7 @@ function jmr_variables_do_page() {
 
 	</div>
 
-<?php
+	<?php
 }
 
 // Sanitize and validate input
@@ -623,7 +631,7 @@ function get_the_variable($var) {
 	$options = get_option('jmr_var');
 
 	if ( ( !$var ) || ( !isset( $options[$var] ) ) ) {
-		return;
+		return false;
 	}
 
 	$variable = $options[$var];
@@ -649,8 +657,167 @@ function get_the_social_links( $networks = array(), $link = true, $icon = true, 
 	// if count > 0 create wrapper, add class, then loop through anonymous array
 }
 
+// function for converting from 24hr format
+function convert(&$param, $delimiter = ".") {
+	/*
+	 * Array fo delimiters to search for
+	 */
+	$delimiters = array(':', '.');
+	$del = ':';
+
+	/*
+	 * Search string for delimiter array and store for use in formatting
+	 */
+	foreach ( $delimiters as $item ) :
+		if ( strpos($param, $item) ) {
+			$del = $item;
+		};
+	endforeach;
+
+	/*
+	 * Explode param with delimiter
+	 */
+	$time = explode($del, $param);
+
+	/*
+	 * Calculate and format with delimiter
+	 */
+	if ( $param > 12 ) {
+		if ( $time[1]) :
+			$param = $time[0] - 12 . $delimiter . $time[1].'pm';
+		else :
+			$param = $time[0] - 12 . $delimiter .'00pm';
+		endif;
+	} elseif ( $param == 12 ) {
+		if ( $time[1] ) :
+			$param = $time[0] . $delimiter . $time[1] .'pm';
+		else:
+			$param = $time[0] . $delimiter .'00pm';
+		endif;
+	} else {
+		if ( $time[1] ) :
+			$param = $time[0] . $delimiter . $time[1] .'am';
+		else:
+			$param = $time[0] . $delimiter .'00am';
+		endif;
+	}
+
+	/*
+	 * Return Param
+	 */
+	return $param;
+}
+
+// Shorten days
+function truncate(&$param) {
+	if ($param === "thursday" ) {
+		$param = substr($param,0,4); }
+	else {
+		$param = substr($param, 0, 3); }
+	return;
+}
+
+// Get individual hours for a day
+function get_the_hours($var, $time_format = null, $day_format = null, $day_range = null, $before = '<span>', $after = '</span>') {
+
+	// Get variables
+	$options = get_option('jmr_var');
+	$open = get_the_variable('hours_'. $var .'_open');
+	$close = get_the_variable('hours_'. $var .'_close');
+	$day2 = null;
+	if ( $day_range ) {
+		$day2 = '-'. ucfirst(substr($day_range, 0, 2)); }
+	$schema = 'itemprop="openingHours" content="'. ucfirst(substr($var, 0, 2)) . $day2 .' '. $open .':00-'. $close .':00"';
+
+	// Truncate if short & display 1/2 days
+	if ( $day_format === 'short' && $day_range === null ) {
+		truncate($var);
+		$days = ucfirst($var);
+	} else if  ( $day_range === null && $day_range === null ) {
+		$days = ucfirst($var);
+	} else if  ( $day_format === 'short' && $day_range ) {
+		truncate($var);
+		truncate($day_range);
+		$days = ucfirst($var) .' - '. ucfirst($day_range);
+	} else {
+		$days = ucfirst($var) .' - '. ucfirst($day_range);
+	}
+
+	if ( !$open || !$close ) :
+		$hours =  '<span itemscope itemtype="http://schema.org/'.  $options['schema_type'] .'">'.
+			$before .'<span>'. $days .'</span> Closed<span>'. $after .
+			'<meta '. $schema .'/> 
+              </span>';
+	else :
+		// Time formatting
+		if ( $time_format !== '24' || $time_format !== 24 ) {
+			convert($open);
+			convert($close);
+		}
+
+		$hours =  '<span itemscope itemtype="http://schema.org/'.  $options['schema_type'] .'">'.
+			$before .'<span>'. $days .'</span> <span>'. $open .'</span> - <span>'. $close .'<span>'. $after .
+			'<meta '. $schema .'/> 
+              </span>';
+	endif;
+
+	return $hours;
+}
+
+// Disply business hours
+function get_the_business_hours($time_format = null, $day_format = null, $before = '<span>', $after = '</span>') {
+
+	// Get variables8
+	$days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+	$hours = array();
+	$i = 0;
+
+	// for each day
+	foreach ($days as $key=>$day) {
+
+		// set open & close val
+		$open = get_the_variable('hours_'. $day .'_open');
+		$close = get_the_variable('hours_'. $day .'_close');
+
+		// if first push values to array
+		if ( $key === 0 ) {
+			array_push( $hours, array($key, $open, $close, $key) );
+			// else loop through all days
+		} else {
+			$key2 = $key;
+
+			// if match previous item in hours array skip
+			if ( $open === $hours[$i][1] && $close === $hours[$i][2] ) {
+				$hours[$i][3] = $key;
+
+				// else use index to set key & push hours to array
+			} else {
+				$i++;
+				array_push( $hours, array($key, $open, $close, $key2) );
+				$key2 = 0;
+			}
+		}
+	}
+
+	$output = '<div class="business_hours">';
+	foreach ( $hours as $val ) {
+		$key    = $val[0];
+		$key2   = $val[3];
+		$day    = $days[$key];
+		$day2   = $days[$key2];
+
+		if ( $key === $key2 ) {
+			$output = $output . get_the_hours($day, $time_format, $day_format, null, $before, $after);
+		} else {
+			$output = $output . get_the_hours($day, $time_format, $day_format, $day2, $before, $after);
+		}
+	}
+	$output = $output . '</div>';
+	return $output;
+}
+
 // Return a formatted address for use in PHP
-function get_the_address($var) {
+function get_the_address($before = '<div>', $after = '</div>') {
 
 	// Get variables
 	$options = get_option('jmr_var');
@@ -663,24 +830,24 @@ function get_the_address($var) {
 
 	// HTML output
 	$html = '<address itemscope itemtype="http://schema.org/PostalAddress">';
-		// Street address vs PO Box
-		if ( isset($address_street) && empty($address_box) ) {
-			$html .= '<span itemprop="streetAddress">'. $address_street .'</span><br>'; }
-		elseif ( isset($address_box) )  {
-			$html .= '<span itemprop="postOfficeBoxNumber">PO Box'. $address_box .'</span><br>'; }
+	// Street address vs PO Box
+	if ( isset($address_street) && empty($address_box) ) {
+		$html .= '<span itemprop="streetAddress">'. $address_street .'</span><br>'; }
+	elseif ( isset($address_box) )  {
+		$html .= '<span itemprop="postOfficeBoxNumber">PO Box '. $address_box .'</span><br>'; }
 
-		// Locality -> Region -> Postalcode -> AddressCountry
-		if ( isset($address_locality) ) {
-			$html .= '<span itemprop="addressLocality">'. $address_locality .'</span>'; }
-		if ( isset($address_region) ) {
-			$html .= '<span itemprop="addressRegion">'. $address_region .'</span>'; }
-		if ( isset($address_code) ) {
-			$html .= '<span itemprop="postalCode">'. $address_code .'</span><br>'; }
-		if ( isset($address_country) ) {
-			$html .= '<span itemprop="addressCountry">'. $address_country .'</span>'; }
+	// Locality -> Region -> Postalcode -> AddressCountry
+	if ( isset($address_locality) ) {
+		$html .= '<span itemprop="addressLocality">'. $address_locality .'</span>'; }
+	if ( isset($address_region) ) {
+		$html .= '<span itemprop="addressRegion">'. $address_region .'</span>'; }
+	if ( isset($address_code) ) {
+		$html .= '<span itemprop="postalCode">'. $address_code .'</span><br>'; }
+	if ( isset($address_country) ) {
+		$html .= '<span itemprop="addressCountry">'. $address_country .'</span>'; }
 	$html .= '</address>';
 
-	return $html;
+	return $before . $html . $after;
 
 }
 
@@ -690,26 +857,26 @@ function jmr_var_setup(){
 	function jmr_google_analytics(){
 		$options = get_option('jmr_var');
 		if ( isset( $options['ga_enabled'] ) && 1 == $options['ga_enabled'] && isset( $options['ga_id'] ) && false === empty( $options['ga_id'] ) ) {
-	?>
-		<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	<?php
-			if ( isset( $options['ga_ssl'] ) && 1 == $options['ga_ssl'] ) {
-				echo "\t\tga('set', 'forceSSL', true);\n";
-			}
-	?>
-			ga('create', '<?php echo $options['ga_id']; ?>', 'auto');
-	<?php
-			if ( isset( $options['ga_display'] ) && 1 == $options['ga_display'] ) {
-				echo "\t\tga('require', 'displayfeatures');\n";
-			}
-	?>
-			ga('send', 'pageview');
-		</script>
-	<?php
+			?>
+			<script>
+				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+					(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+					m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+				<?php
+				if ( isset( $options['ga_ssl'] ) && 1 == $options['ga_ssl'] ) {
+					echo "\t\tga('set', 'forceSSL', true);\n";
+				}
+				?>
+				ga('create', '<?php echo $options['ga_id']; ?>', 'auto');
+				<?php
+				if ( isset( $options['ga_display'] ) && 1 == $options['ga_display'] ) {
+					echo "\t\tga('require', 'displayfeatures');\n";
+				}
+				?>
+				ga('send', 'pageview');
+			</script>
+			<?php
 		}
 	}
 	add_action( 'wp_head', 'jmr_google_analytics', 999 );
@@ -756,30 +923,30 @@ function jmr_var_setup(){
 		$schema_logo = $image[0];
 
 		$metadata = '
-	{
-	  "@context": "http://schema.org",
-	  "@type": "' . $type . '",
-	  "name": "' . $org . '",
-	  "description": "' . $schemaDescription . '",
-	  "address": {
-	    "@type": "PostalAddress",
-	    "streetAddress": "' . $address_street . '",
-	    "addressLocality": "' . $address_locality . '",
-	    "addressRegion": "' . $address_region . '",
-	    "postalCode": "' . $address_code . '",
-	    "addressCountry": "' . $address_country . '"
-	  },
-	  "geo": {
-	    "@type": "GeoCoordinates",
-	    "latitude": ' . $geo_latitude . ',
-	    "longitude": ' . $geo_longitude . '
-	  },
-	  "url": "' . $url . '"
-	  "telephone": "' . $phone . '",
-	  "faxNumber": "' . $fax . '",
-	  "email": "' . $email . '",
-	  "logo": "' . $schema_logo . '",
-	}';
+    {
+      "@context": "http://schema.org",
+      "@type": "' . $type . '",
+      "name": "' . $org . '",
+      "description": "' . $schemaDescription . '",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "' . $address_street . '",
+        "addressLocality": "' . $address_locality . '",
+        "addressRegion": "' . $address_region . '",
+        "postalCode": "' . $address_code . '",
+        "addressCountry": "' . $address_country . '"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": ' . $geo_latitude . ',
+        "longitude": ' . $geo_longitude . '
+      },
+      "url": "' . $url . '"
+      "telephone": "' . $phone . '",
+      "faxNumber": "' . $fax . '",
+      "email": "' . $email . '",
+      "logo": "' . $schema_logo . '",
+    }';
 		return $metadata;
 	}
 

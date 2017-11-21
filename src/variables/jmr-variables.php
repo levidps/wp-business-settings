@@ -17,7 +17,7 @@ function jmr_variables_add_page() {
 
 // Draw the menu page
 function jmr_variables_do_page() {
-?>
+	?>
 
 	<div class="wrap">
 
@@ -414,7 +414,7 @@ function jmr_variables_do_page() {
 									<option value="RoofingContractor">Roofing Contractor</option>
 								</optgroup>
 								<option value="InternetCafe">Internet Cafe</option>
-								<optgroup label="LegalService">
+								<optgroup label="LegalService">Legal Service</option>
 									<option value="Attorney">Attorney</option>
 									<option value="Notary">Notary</option>
 								</optgroup>
@@ -521,9 +521,9 @@ function jmr_variables_do_page() {
 							<span class="hide">Hide generated code</span>
 						</button>
 						<div id="schemaPreview" class="schema-code code ui-hidden">
-							<pre>
-								<?php echo jmr_variables_json(); ?>
-							</pre>
+                            <pre>
+                                <?php echo jmr_variables_json(); ?>
+                            </pre>
 						</div>
 					</td>
 				</tr>
@@ -643,20 +643,21 @@ function get_the_variable($var) {
 function the_variable($var) {
 
 	if ( get_the_variable($var) ) {
-		echo get_the_variable($var);
+		echo $variable;
 	}
 
 	return;
 
 }
 
-/**
- * function for converting from 24hr format
- * includes delimiter for splitting currently has . and :
- * @param $param
- * @param string $delimiter
- * @return string
- */
+// Return formatted social media values
+function get_the_social_links( $networks = array(), $link = true, $icon = true, $before='<li>', $after='</li>', $container = '<nav>', $container_class = 'social-menu' ){
+	// test $networks for string or array
+	// query $networks foreach to create anonymous array of valid networks
+	// if count > 0 create wrapper, add class, then loop through anonymous array
+}
+
+// function for converting from 24hr format
 function convert(&$param, $delimiter = ".") {
 	/*
 	 * Array fo delimiters to search for
@@ -687,6 +688,12 @@ function convert(&$param, $delimiter = ".") {
 		else :
 			$param = $time[0] - 12 . $delimiter .'00pm';
 		endif;
+	} elseif ( $param == 12 ) {
+		if ( $time[1] ) :
+			$param = $time[0] . $delimiter . $time[1] .'pm';
+		else:
+			$param = $time[0] . $delimiter .'00pm';
+		endif;
 	} else {
 		if ( $time[1] ) :
 			$param = $time[0] . $delimiter . $time[1] .'am';
@@ -701,28 +708,17 @@ function convert(&$param, $delimiter = ".") {
 	return $param;
 }
 
-/**
- * Shorten day Name
- * @param $param
- * @return bool|string
- */
+// Shorten days
 function truncate(&$param) {
 	if ($param === "thursday" ) {
 		$param = substr($param,0,4); }
 	else {
 		$param = substr($param, 0, 3); }
-	return $param;
+	return;
 }
 
-/**
- * Get individual hours for a day
- * @param $var
- * @param null $time_format
- * @param null $day_format
- * @param null $day_range
- * @return string
- */
-function get_the_hours($var, $time_format = null, $day_format = null, $day_range = null) {
+// Get individual hours for a day
+function get_the_hours($var, $time_format = null, $day_format = null, $day_range = null, $before = '<span>', $after = '</span>') {
 
 	// Get variables
 	$options = get_option('jmr_var');
@@ -732,12 +728,6 @@ function get_the_hours($var, $time_format = null, $day_format = null, $day_range
 	if ( $day_range ) {
 		$day2 = '-'. ucfirst(substr($day_range, 0, 2)); }
 	$schema = 'itemprop="openingHours" content="'. ucfirst(substr($var, 0, 2)) . $day2 .' '. $open .':00-'. $close .':00"';
-
-	// Time formatting
-	if ( $time_format === '24' || $time_format === 24 ) { } else {
-		convert($open);
-		convert($close);
-	}
 
 	// Truncate if short & display 1/2 days
 	if ( $day_format === 'short' && $day_range === null ) {
@@ -753,23 +743,31 @@ function get_the_hours($var, $time_format = null, $day_format = null, $day_range
 		$days = ucfirst($var) .' - '. ucfirst($day_range);
 	}
 
-	$hours =  '<span itemscope itemtype="http://schema.org/'.  $options['schema_type'] .'">
-				<span>'. $days .'</span> <span>'. $open .'</span> - <span>'. $close .'</span>
-				<meta '. $schema .'/>
-			  </span>';
+	if ( !$open || !$close ) :
+		$hours =  '<span itemscope itemtype="http://schema.org/'.  $options['schema_type'] .'">'.
+			$before .'<span>'. $days .'</span> Closed<span>'. $after .
+			'<meta '. $schema .'/> 
+              </span>';
+	else :
+		// Time formatting
+		if ( $time_format !== '24' || $time_format !== 24 ) {
+			convert($open);
+			convert($close);
+		}
+
+		$hours =  '<span itemscope itemtype="http://schema.org/'.  $options['schema_type'] .'">'.
+			$before .'<span>'. $days .'</span> <span>'. $open .'</span> - <span>'. $close .'<span>'. $after .
+			'<meta '. $schema .'/> 
+              </span>';
+	endif;
 
 	return $hours;
 }
 
-/**
- * Display business hours
- * @param null $time_format
- * @param null $day_format
- */
-function get_the_business_hours($time_format = null, $day_format = null) {
+// Disply business hours
+function get_the_business_hours($time_format = null, $day_format = null, $before = '<span>', $after = '</span>') {
 
 	// Get variables8
-	$options = get_option('jmr_var');
 	$days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
 	$hours = array();
 	$i = 0;
@@ -801,7 +799,7 @@ function get_the_business_hours($time_format = null, $day_format = null) {
 		}
 	}
 
-	echo '<div class="business_hours">';
+	$output = '<div class="business_hours">';
 	foreach ( $hours as $val ) {
 		$key    = $val[0];
 		$key2   = $val[3];
@@ -809,18 +807,17 @@ function get_the_business_hours($time_format = null, $day_format = null) {
 		$day2   = $days[$key2];
 
 		if ( $key === $key2 ) {
-			echo get_the_hours($day, $time_format, $day_format);
+			$output = $output . get_the_hours($day, $time_format, $day_format, null, $before, $after);
 		} else {
-			echo get_the_hours($day, $time_format, $day_format, $day2);
+			$output = $output . get_the_hours($day, $time_format, $day_format, $day2, $before, $after);
 		}
 	}
-	echo '</div>';
-	return;
-
+	$output = $output . '</div>';
+	return $output;
 }
 
 // Return a formatted address for use in PHP
-function get_the_address() {
+function get_the_address($before = '<div>', $after = '</div>') {
 
 	// Get variables
 	$options = get_option('jmr_var');
@@ -850,7 +847,7 @@ function get_the_address() {
 		$html .= '<span itemprop="addressCountry">'. $address_country .'</span>'; }
 	$html .= '</address>';
 
-	return $html;
+	return $before . $html . $after;
 
 }
 
@@ -926,30 +923,30 @@ function jmr_var_setup(){
 		$schema_logo = $image[0];
 
 		$metadata = '
-	{
-	  "@context": "http://schema.org",
-	  "@type": "' . $type . '",
-	  "name": "' . $org . '",
-	  "description": "' . $schemaDescription . '",
-	  "address": {
-		"@type": "PostalAddress",
-		"streetAddress": "' . $address_street . '",
-		"addressLocality": "' . $address_locality . '",
-		"addressRegion": "' . $address_region . '",
-		"postalCode": "' . $address_code . '",
-		"addressCountry": "' . $address_country . '"
-	  },
-	  "geo": {
-		"@type": "GeoCoordinates",
-		"latitude": ' . $geo_latitude . ',
-		"longitude": ' . $geo_longitude . '
-	  },
-	  "url": "' . $url . '"
-	  "telephone": "' . $phone . '",
-	  "faxNumber": "' . $fax . '",
-	  "email": "' . $email . '",
-	  "logo": "' . $schema_logo . '",
-	}';
+    {
+      "@context": "http://schema.org",
+      "@type": "' . $type . '",
+      "name": "' . $org . '",
+      "description": "' . $schemaDescription . '",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "' . $address_street . '",
+        "addressLocality": "' . $address_locality . '",
+        "addressRegion": "' . $address_region . '",
+        "postalCode": "' . $address_code . '",
+        "addressCountry": "' . $address_country . '"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": ' . $geo_latitude . ',
+        "longitude": ' . $geo_longitude . '
+      },
+      "url": "' . $url . '"
+      "telephone": "' . $phone . '",
+      "faxNumber": "' . $fax . '",
+      "email": "' . $email . '",
+      "logo": "' . $schema_logo . '",
+    }';
 		return $metadata;
 	}
 
