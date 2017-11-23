@@ -683,19 +683,19 @@ function convert(&$param, $delimiter = ".") {
 	 * Calculate and format with delimiter
 	 */
 	if ( $param > 12 ) {
-		if ( $time[1]) :
+		if ( isset($time[1]) ) :
 			$param = $time[0] - 12 . $delimiter . $time[1].'pm';
 		else :
 			$param = $time[0] - 12 . $delimiter .'00pm';
 		endif;
 	} elseif ( $param == 12 ) {
-		if ( $time[1] ) :
+		if ( isset($time[1]) ) :
 			$param = $time[0] . $delimiter . $time[1] .'pm';
 		else:
 			$param = $time[0] . $delimiter .'00pm';
 		endif;
 	} else {
-		if ( $time[1] ) :
+		if ( isset($time[1]) ) :
 			$param = $time[0] . $delimiter . $time[1] .'am';
 		else:
 			$param = $time[0] . $delimiter .'00am';
