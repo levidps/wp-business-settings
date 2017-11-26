@@ -650,14 +650,85 @@ function the_variable($var) {
 
 }
 
-// Return formatted social media values
-function get_the_social_links( $networks = array(), $link = true, $icon = true, $before='<li>', $after='</li>', $container = '<nav>', $container_class = 'social-menu' ){
-	// test $networks for string or array
-	// query $networks foreach to create anonymous array of valid networks
-	// if count > 0 create wrapper, add class, then loop through anonymous array
+/**
+ * Return single social media item
+ * @param string $param
+ * @param bool $icon
+ * @param string $before
+ * @param string $after
+ * @return null|string
+ */
+function get_the_social_link($param = '', $icon = true, $before = '<span>', $after = "</span>") {
+	$output = null;
+	$inside = $param;
+	$network = get_the_variable($param);
+
+	if ( $network ) :
+		if ( $icon === true ) :
+			$inside = '<i class="icon-'. $param .'"></i>';
+		endif;
+
+		$output = $before .'<a href="'. $network .'" target="_blank">'. $inside .'</a>'. $after;
+	endif;
+
+	return $output;
 }
 
-// function for converting from 24hr format
+/**
+ * Return formatted social media values
+ * @param array $networks
+ * @param bool $link
+ * @param bool $icon
+ * @param string $before
+ * @param string $after
+ * @param string $container
+ * @param string $container_class
+ */
+function get_the_social_links($networks = array(), $link = true, $icon = true, $before='<li>', $after='</li>', $container = '<nav>', $container_class = 'social-menu' ) {
+	$output = null;
+
+	// test $networks for string or array
+	if ( is_array($networks) || is_string($networks)) :
+
+		$valid_networks = array();
+
+		// query $networks foreach to create anonymous array of valid networks
+		foreach ( $networks as $network ) :
+			if ( get_the_variable($network) ) :
+				array_push($valid_networks, $network);
+			endif;
+		endforeach;
+
+		// if count > 0 create wrapper, add class, then loop through anonymous array
+		if ( count($valid_networks) > 0 ) :
+			$container_end = str_replace('<', '</',$container);
+
+			if ( $container_class ) :
+				$container = str_replace('>',' class="'. $container_class . '">',$container);
+			endif;
+
+			foreach ( $valid_networks as $network ) :
+				$output = $output . get_the_social_link($network, $icon, $before, $after);
+			endforeach;
+
+			$output = $container . $output . $container_end;
+		endif;
+
+	// Return false if invalid argument for $networks
+	else :
+		$output =  false;
+	endif;
+
+	return $output;
+
+}
+
+/**
+ * function for converting from 24hr format
+ * @param $param
+ * @param string $delimiter
+ * @return string
+ */
 function convert(&$param, $delimiter = ".") {
 	/*
 	 * Array fo delimiters to search for
@@ -708,7 +779,10 @@ function convert(&$param, $delimiter = ".") {
 	return $param;
 }
 
-// Shorten days
+/**
+ * Shorten days
+ * @param $param
+ */
 function truncate(&$param) {
 	if ($param === "thursday" ) {
 		$param = substr($param,0,4); }
@@ -717,7 +791,16 @@ function truncate(&$param) {
 	return;
 }
 
-// Get individual hours for a day
+/**
+ * Get individual hours for a day
+ * @param $var
+ * @param null $time_format
+ * @param null $day_format
+ * @param null $day_range
+ * @param string $before
+ * @param string $after
+ * @return string
+ */
 function get_the_hours($var, $time_format = null, $day_format = null, $day_range = null, $before = '<span>', $after = '</span>') {
 
 	// Get variables
@@ -764,7 +847,14 @@ function get_the_hours($var, $time_format = null, $day_format = null, $day_range
 	return $hours;
 }
 
-// Disply business hours
+/**
+ * Display business hours
+ * @param null $time_format
+ * @param null $day_format
+ * @param string $before
+ * @param string $after
+ * @return string
+ */
 function get_the_business_hours($time_format = null, $day_format = null, $before = '<span>', $after = '</span>') {
 
 	// Get variables8
@@ -816,7 +906,12 @@ function get_the_business_hours($time_format = null, $day_format = null, $before
 	return $output;
 }
 
-// Return a formatted address for use in PHP
+/**
+ * Return a formatted address for use in PHP
+ * @param string $before
+ * @param string $after
+ * @return string
+ */
 function get_the_address($before = '<div>', $after = '</div>') {
 
 	// Get variables
