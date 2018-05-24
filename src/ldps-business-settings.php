@@ -137,7 +137,20 @@ function jmr_variables_do_page() {
 				<p><code class="jmr_var">get_the_hours('monday', 24, 'short')</code> - <b>Mon 10 - 17</b></p>
 				<p><code class="jmr_var">get_the_hours('monday')</code> - <b>Monday 10am - 5pm</b></p>
 			</div>
-			<table class="form-table form-hours">
+
+			<table class="form-table">
+				<tr>
+					<th><?php esc_html_e('Business Hours', 'variables'); ?></th>
+					<td><label><input type="checkbox" value="1" name="jmr_var[holiday_hours_enabled]" id="holidayHoursEnabled"
+								<?php if ( isset( $options['holiday_hours_enabled'] ) ) checked( $options['holiday_hours_enabled'], 1 ); ?>> Enable holiday business hours</label></td>
+				</tr>
+			</table>
+
+			<!-- Standard Hours -->
+			<table id="standardHours" class="form-table form-hours">
+				<tr>
+					<th colspan="2" style="margin-bottom:0; border-bottom: 1px solid #ddd; opacity: .4; padding-bottom: .5em; padding-top: 0;">Standard Hours</th>
+				</tr>
 				<tr>
 					<th><?php esc_html_e('Monday', 'variables'); ?> <br></th>
 					<td>
@@ -185,6 +198,62 @@ function jmr_variables_do_page() {
 					<td>
 						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_sunday_open]" value="<?php if ( isset( $options['hours_sunday_open'] ) ) echo $options['hours_sunday_open']; ?>"></label>
 						<label>Close: <input type="text" class="regular-text small-text" name="jmr_var[hours_sunday_close]" value="<?php if ( isset( $options['hours_sunday_close'] ) ) echo $options['hours_sunday_close']; ?>"></label>
+					</td>
+				</tr>
+			</table>
+
+			<!-- Holiday Hours -->
+			<table id="holidayHours" class="form-table form-hours">
+				<tr>
+					<th colspan="2" style="margin-bottom:0; border-bottom: 1px solid #ddd; opacity: .4; padding-bottom: .5em; padding-top: 0;">Holiday Hours</th>
+				</tr>
+				<tr>
+					<th><?php esc_html_e('Monday', 'variables'); ?> <br></th>
+					<td>
+						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_monday_open_holiday]" value="<?php if ( isset( $options['hours_monday_open_holiday'] ) ) echo $options['hours_monday_open_holiday']; ?>"></label>
+						<label>Close: <input type="text" class="regular-text small-text" name="jmr_var[hours_monday_close_holiday]" value="<?php if ( isset( $options['hours_monday_close_holiday'] ) ) echo $options['hours_monday_close_holiday']; ?>"></label>
+					</td>
+				</tr>
+				<tr>
+					<th><?php esc_html_e('Tuesday', 'variables'); ?></th>
+					<td>
+						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_tuesday_open_holiday]" value="<?php if ( isset( $options['hours_tuesday_open_holiday'] ) ) echo $options['hours_tuesday_open_holiday']; ?>"></label>
+						<label>Close: <input type="text" class="regular-text small-text" name="jmr_var[hours_tuesday_close_holiday]" value="<?php if ( isset( $options['hours_tuesday_close_holiday'] ) ) echo $options['hours_tuesday_close_holiday']; ?>"></label>
+					</td>
+				</tr>
+				<tr>
+					<th><?php esc_html_e('Wednesday', 'variables'); ?></th>
+					<td>
+						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_wednesday_open_holiday]" value="<?php if ( isset( $options['hours_wednesday_open_holiday'] ) ) echo $options['hours_wednesday_open_holiday']; ?>"></label>
+						<label>Close: <input type="text" class="regular-text small-text" name="jmr_var[hours_wednesday_close_holiday]" value="<?php if ( isset( $options['hours_wednesday_close_holiday'] ) ) echo $options['hours_wednesday_close_holiday']; ?>"></label>
+					</td>
+				</tr>
+				<tr>
+					<th><?php esc_html_e('Thursday', 'variables'); ?></th>
+					<td>
+						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_thursday_open_holiday]" value="<?php if ( isset( $options['hours_thursday_open_holiday'] ) ) echo $options['hours_thursday_open_holiday']; ?>"></label>
+						<label>Close: <input type="text" class="regular-text small-text" name="jmr_var[hours_thursday_close_holiday]" value="<?php if ( isset( $options['hours_thursday_close_holiday'] ) ) echo $options['hours_thursday_close_holiday']; ?>"></label>
+					</td>
+				</tr>
+				<tr>
+					<th><?php esc_html_e('Friday', 'variables'); ?></th>
+					<td>
+						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_friday_open_holiday]" value="<?php if ( isset( $options['hours_friday_open_holiday'] ) ) echo $options['hours_friday_open_holiday']; ?>"></label>
+						<label>Close: <input type="text" class="regular-text small-text" name="jmr_var[hours_friday_close_holiday]" value="<?php if ( isset( $options['hours_friday_close_holiday'] ) ) echo $options['hours_friday_close_holiday']; ?>"></label>
+					</td>
+				</tr>
+				<tr>
+					<th><?php esc_html_e('Saturday', 'variables'); ?></th>
+					<td>
+						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_saturday_open_holiday]" value="<?php if ( isset( $options['hours_saturday_open_holiday'] ) ) echo $options['hours_saturday_open_holiday']; ?>"></label>
+						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_saturday_close_holiday]" value="<?php if ( isset( $options['hours_saturday_close_holiday'] ) ) echo $options['hours_saturday_close_holiday']; ?>"></label>
+					</td>
+				</tr>
+				<tr>
+					<th><?php esc_html_e('Sunday', 'variables'); ?></th>
+					<td>
+						<label>Open: <input type="text" class="regular-text small-text" name="jmr_var[hours_sunday_open_holiday]" value="<?php if ( isset( $options['hours_sunday_open_holiday'] ) ) echo $options['hours_sunday_open_holiday']; ?>"></label>
+						<label>Close: <input type="text" class="regular-text small-text" name="jmr_var[hours_sunday_close_holiday]" value="<?php if ( isset( $options['hours_sunday_close_holiday'] ) ) echo $options['hours_sunday_close_holiday']; ?>"></label>
 					</td>
 				</tr>
 			</table>
@@ -570,6 +639,21 @@ function jmr_variables_validate($input) {
 	$input['hours_saturday_close'] = sanitize_text_field( $input['hours_saturday_close'] );
 	$input['hours_sunday_open'] = sanitize_text_field( $input['hours_sunday_open'] );
 	$input['hours_sunday_close'] = sanitize_text_field( $input['hours_sunday_close'] );
+	// Opening Hours - HOLIDAY
+	$input['hours_monday_open_holiday'] = sanitize_text_field( $input['hours_monday_open_holiday'] );
+	$input['hours_monday_close_holiday'] = sanitize_text_field( $input['hours_monday_close_holiday'] );
+	$input['hours_tuesday_open_holiday'] = sanitize_text_field( $input['hours_tuesday_open_holiday'] );
+	$input['hours_tuesday_close_holiday'] = sanitize_text_field( $input['hours_tuesday_close_holiday'] );
+	$input['hours_wednesday_open_holiday'] = sanitize_text_field( $input['hours_wednesday_open_holiday'] );
+	$input['hours_wednesday_close_holiday'] = sanitize_text_field( $input['hours_wednesday_close_holiday'] );
+	$input['hours_thursday_open_holiday'] = sanitize_text_field( $input['hours_thursday_open_holiday'] );
+	$input['hours_thursday_close_holiday'] = sanitize_text_field( $input['hours_thursday_close_holiday'] );
+	$input['hours_friday_open_holiday'] = sanitize_text_field( $input['hours_friday_open_holiday'] );
+	$input['hours_friday_close_holiday'] = sanitize_text_field( $input['hours_friday_close_holiday'] );
+	$input['hours_saturday_open_holiday'] = sanitize_text_field( $input['hours_saturday_open_holiday'] );
+	$input['hours_saturday_close_holiday'] = sanitize_text_field( $input['hours_saturday_close_holiday'] );
+	$input['hours_sunday_open_holiday'] = sanitize_text_field( $input['hours_sunday_open_holiday'] );
+	$input['hours_sunday_close_holiday'] = sanitize_text_field( $input['hours_sunday_close_holiday'] );
 
 	// Social Networks
 	$input['facebook'] = esc_url_raw( $input['facebook'], array('http', 'https') );
@@ -607,18 +691,18 @@ function jmr_variables_validate($input) {
 
 // Enqueue CSS
 function jmr_variables_style($hook) {
-	if ( 'settings_page_jmr_variables' !== $hook ) {
+	if ( 'toplevel_page_business_settings' !== $hook ) {
 		return;
 	}
-	wp_register_style( 'jmr-variables', WPMU_PLUGIN_URL . '/dist/css/ldps-variables.css', false, '1.0' );
+	wp_register_style( 'jmr-variables', WPMU_PLUGIN_URL . '/ldps-variables/dist/css/ldps-variables.min.css', false, '1.0' );
 	wp_enqueue_style( 'jmr-variables' );
 
 	$options = get_option('jmr_var');
 	if ( isset( $options['geo_api'] ) && false === empty( $options['geo_api'] ) ) :
 		wp_register_script( 'jmr-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $options['geo_api'], array(), '1.0', true );
-		wp_register_script( 'jmr-variables', WPMU_PLUGIN_URL . '/dist/js/ldps-variables-min.js', array('jmr-google-maps'), '1.0', true );
+		wp_register_script( 'jmr-variables', WPMU_PLUGIN_URL . '/ldps-variables/dist/js/ldps-variables.min.js', array('jmr-google-maps'), '1.0', true );
 	else :
-		wp_register_script( 'jmr-variables', WPMU_PLUGIN_URL . '/dist/js/ldps-variables-min.js', array(), '1.0', true );
+		wp_register_script( 'jmr-variables', WPMU_PLUGIN_URL . '/ldps-variables/dist/js/ldps-variables.min.js', array(), '1.0', true );
 	endif;
 	wp_enqueue_script( 'jmr-variables' );
 }
@@ -683,6 +767,7 @@ function get_the_social_link($param = '', $icon = true, $before = '<span>', $aft
  * @param string $after
  * @param string $container
  * @param string $container_class
+ * @return bool|null|string
  */
 function get_the_social_links($networks = array(), $link = true, $icon = true, $before='<li>', $after='</li>', $container = '<nav>', $container_class = 'social-menu' ) {
 	$output = null;
@@ -805,9 +890,14 @@ function get_the_hours($var, $time_format = null, $day_format = null, $day_range
 
 	// Get variables
 	$options = get_option('jmr_var');
-	$open = get_the_variable('hours_'. $var .'_open');
-	$close = get_the_variable('hours_'. $var .'_close');
+
+	$suffix = '';
+	if ( get_the_variable('holiday_hours_enabled') ) $suffix = '_holiday';
+
+	$open = get_the_variable('hours_'. $var .'_open'. $suffix);
+	$close = get_the_variable('hours_'. $var .'_close'. $suffix);
 	$day2 = null;
+
 	if ( $day_range ) {
 		$day2 = '-'. ucfirst(substr($day_range, 0, 2)); }
 	$schema = 'itemprop="openingHours" content="'. ucfirst(substr($var, 0, 2)) . $day2 .' '. $open .':00-'. $close .':00"';
@@ -859,15 +949,18 @@ function get_the_business_hours($time_format = null, $day_format = null, $before
 
 	// Get variables8
 	$days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+	$suffix = '';
 	$hours = array();
 	$i = 0;
+
+	if ( get_the_variable('holiday_hours_enabled') ) $suffix = '_holiday';
 
 	// for each day
 	foreach ($days as $key=>$day) {
 
 		// set open & close val
-		$open = get_the_variable('hours_'. $day .'_open');
-		$close = get_the_variable('hours_'. $day .'_close');
+		$open = get_the_variable('hours_'. $day .'_open' . $suffix);
+		$close = get_the_variable('hours_'. $day .'_close' . $suffix);
 
 		// if first push values to array
 		if ( $key === 0 ) {

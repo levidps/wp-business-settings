@@ -28,4 +28,4 @@
 
 if ( !defined( 'ABSPATH' ) ) exit;
 
-require WPMU_PLUGIN_DIR . '/dist/ldps-busines-settings.php';
+require WPMU_PLUGIN_DIR . '/dist/ldps-business-settings.php';

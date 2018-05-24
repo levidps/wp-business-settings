@@ -45,6 +45,24 @@ var schemaUpdateOptions = function(){
 	}
 };
 
+var toggleBusinessHours = function() {
+	var standardHours = document.getElementById('standardHours');
+	var holidayHours = document.getElementById('holidayHours');
+	var hoursToggle = document.getElementById('holidayHoursEnabled');
+
+	console.log('UGH');
+
+	if( !hoursToggle.checked ) {
+		standardHours.style.display = 'block';
+		holidayHours.style.display = 'none';
+	} else {
+		standardHours.style.display = 'none';
+		holidayHours.style.display = 'block';
+	}
+
+	hoursToggle.addEventListener( 'change', toggleBusinessHours );
+};
+
 var init = function() {
 
 	var $sel = jQuery('#schemaType').val();
@@ -57,6 +75,8 @@ var init = function() {
 			jQuery('.schema-type-options').find('option[value="' + $p + '"]').prop('selected', true);
 		}
 	}
+
+	toggleBusinessHours();
 
 	document.getElementById('showSchemaJSON').addEventListener('click', showSchema, false);
 	document.getElementById('schemaTypeSelect').addEventListener('change', schemaUpdateOptions, false);
