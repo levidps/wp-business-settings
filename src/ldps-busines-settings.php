@@ -12,7 +12,7 @@ function jmr_variables_init() {
 
 // Add menu page
 function jmr_variables_add_page() {
-	add_options_page('Variables', 'Variables', 'manage_options', 'jmr_variables', 'jmr_variables_do_page');
+	add_menu_page('Business Settings', 'Business Settings', 'manage_options', 'business_settings', 'jmr_variables_do_page');
 }
 
 // Draw the menu page
@@ -610,15 +610,15 @@ function jmr_variables_style($hook) {
 	if ( 'settings_page_jmr_variables' !== $hook ) {
 		return;
 	}
-	wp_register_style( 'jmr-variables', WPMU_PLUGIN_URL . '/variables/css/jmr-variables.css', false, '1.0' );
+	wp_register_style( 'jmr-variables', WPMU_PLUGIN_URL . '/dist/css/ldps-variables.css', false, '1.0' );
 	wp_enqueue_style( 'jmr-variables' );
 
 	$options = get_option('jmr_var');
 	if ( isset( $options['geo_api'] ) && false === empty( $options['geo_api'] ) ) :
 		wp_register_script( 'jmr-google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $options['geo_api'], array(), '1.0', true );
-		wp_register_script( 'jmr-variables', WPMU_PLUGIN_URL . '/variables/js/jmr-variables-min.js', array('jmr-google-maps'), '1.0', true );
+		wp_register_script( 'jmr-variables', WPMU_PLUGIN_URL . '/dist/js/ldps-variables-min.js', array('jmr-google-maps'), '1.0', true );
 	else :
-		wp_register_script( 'jmr-variables', WPMU_PLUGIN_URL . '/variables/js/jmr-variables-min.js', array(), '1.0', true );
+		wp_register_script( 'jmr-variables', WPMU_PLUGIN_URL . '/dist/js/ldps-variables-min.js', array(), '1.0', true );
 	endif;
 	wp_enqueue_script( 'jmr-variables' );
 }

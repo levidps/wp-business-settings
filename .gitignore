@@ -1,3 +1,9 @@
 # Ignore IDE files #
 ####################
 .idea
+
+# DIST & Compiling #
+####################
+package-lock.json
+node_modules/
+dist/

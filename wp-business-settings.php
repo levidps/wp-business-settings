@@ -1,15 +1,16 @@
 <?php
 /**
- * Plugin Name: Variables
- * Plugin URI: https://jmrcodes.github.io/wp-variables
- * Description: A plugin to store common variables (social media links, phone number, address, etc) that can be accessed in WordPress themes.
+ * Plugin Name: Business Settings
+ * Plugin URI: https://github.com/levidps/wp-variables
+ * Description: A plugin to store common business specific settings (social media links, phone number, address, etc) that can be accessed in WordPress themes.
  * Version: 1.0
- * Author: James Robinson
- * Author URI: https://jmr.codes/
+ * Author: Levidps
+ * Author URI: https://levidps.com
  * License: GPL2
+ * Credits: James Robinson - https://jmr.codes/
  */
 
-/*  Copyright 2017 James Robinson
+/*  Copyright 2017 Levidps
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -27,4 +28,4 @@
 
 if ( !defined( 'ABSPATH' ) ) exit;
 
-require WPMU_PLUGIN_DIR . '/variables/jmr-variables.php';
+require WPMU_PLUGIN_DIR . '/dist/ldps-busines-settings.php';
