@@ -890,9 +890,10 @@ function get_the_hours($var, $time_format = null, $day_format = null, $day_range
 function get_the_business_hours($time_format = null, $day_format = null, $before = '<span>', $after = '</span>') {
 
 	// Get variables8
-	$days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'holiday');
+	$days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
 	$hours = array();
 	$i = 0;
+	if ( get_the_variable('holiday_hours_enabled') ) array_push( $days, 'holiday');
 
 	// for each day
 	foreach ($days as $key=>$day) {
