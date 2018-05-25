@@ -844,7 +844,7 @@ function get_the_hours($var, $time_format = null, $day_format = null, $day_range
 
 	// Truncate if short & display 1/2 days
 	if ( $var === 'holiday' ) {
-		$days = 'Holidays';
+		$days = 'Public Holidays';
 	} else if ( $day_format === 'short' && $day_range === null ) {
 		truncate($var);
 		$days = ucfirst($var);
