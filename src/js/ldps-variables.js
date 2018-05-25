@@ -53,10 +53,8 @@ var toggleBusinessHours = function() {
 	console.log('UGH');
 
 	if( !hoursToggle.checked ) {
-		standardHours.style.display = 'block';
 		holidayHours.style.display = 'none';
 	} else {
-		standardHours.style.display = 'none';
 		holidayHours.style.display = 'block';
 	}
 
