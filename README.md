@@ -6,19 +6,19 @@ Variables/WP Business Settings allows you to store generic information that you 
 It also leverages several functions for displaying this information in a usable format, such as business hours, social media and contact details. It can also embed JSON Schema data into your site to improve SEO.
 
 ## Installation
-####Compile Distribution Package
+#### Compile Distribution Package
 	1. Run `npm i` to install all required packages
 	2. Run `gulp build`
 	3. All production ready files will be output to a `dist` folder
 
-####Install As: Must Use Plugin
+#### Install As: Must Use Plugin\
 *Must use plugins will not appear on the Plugins admin page. You can verify that the plugin is installed by visiting the Variables page located under the WordPress Settings menu.*
 
 	1. Copy the contents of the `ldps-variables` folder to `wp-content/mu-plugins`.
 	2. Move `wp-business-settings.php` to `mu-plugins` folder and update '/dist/ldps-business-settings.php' -> '/ldps-variables/dist/ldps-business-settings.php'
 
 
-####*Install As: Use As Generic Plugin
+#### Install As: Use As Generic Plugin
 	1. Copy the contents of the `ldps-variables` folder to `wp-content/plugins`.
 	2. Activate plugin from the WordPress dashboard.
 

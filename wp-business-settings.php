@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Business Settings
- * Plugin URI: https://github.com/levidps/wp-variables
+ * Plugin URI: https://github.com/levidps/wp-business-settings
  * Description: A plugin to store common business specific settings (social media links, phone number, address, etc) that can be accessed in WordPress themes.
  * Version: 1.0
  * Author: Levidps
